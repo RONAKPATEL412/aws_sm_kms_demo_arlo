@@ -20,7 +20,9 @@ variable "name" {
 }
 
 variable "tags" {
-  default     = {}
+  default     = {
+     Name = "my_kms_key"
+  }
   description = "User-Defined tags"
   type        = map(string)
 }

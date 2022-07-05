@@ -1,7 +1,7 @@
-
 resource "aws_secretsmanager_secret" "secret" {
-  //kms_key_id = var.kms_key_id
-  name       = var.name
+ # kms_key_id = var.kms_key_id
+  kms_key_id = aws_kms_key.aws_sm_dns_mapper_kms_key.key_id
+  name       ="alias/${var.kms_alias}"
  // policy     = var.policy
   tags       = var.tags
 }
@@ -13,7 +13,7 @@ resource "aws_secretsmanager_secret_version" "secret" {
 
 
 
-resource "aws_kms_key" "my_kms_key" {
+resource "aws_kms_key" "aws_sm_dns_mapper_kms_key" {
   description         = "My KMS Keys for Data Encryption"
   customer_master_key_spec = var.key_spec
   is_enabled               = var.enabled
@@ -99,7 +99,7 @@ resource "aws_kms_key" "my_kms_key" {
 EOF
 }
 
-resource "aws_kms_alias" "my_kms_alias" {
-  target_key_id = aws_kms_key.my_kms_key.key_id
+resource "aws_kms_alias" "aws_sm_dns_mapper_kms_key_alish" {
+  target_key_id = aws_kms_key.aws_sm_dns_mapper_kms_key.key_id
   name          = "alias/${var.kms_alias}"
 }
