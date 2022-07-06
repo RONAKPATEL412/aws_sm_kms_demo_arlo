@@ -1,5 +1,5 @@
-Administrator@DhruvRana-Lap MINGW64 ~/Workspace/Arlo/irobot/terraform/aws_secrate_kms_demo_1/terraform-aws-secretsmanager-secret/examples/dummy-secret
-$ terraform plan
+Administrator@DhruvRana-Lap MINGW64 ~/Workspace/Arlo/irobot/terraform/aws_secrate_kms_demo_1/teraform-aws-sm-with-kms/env/dev
+$ terraform.exe plan
 
 Terraform used the selected providers to generate the following execution
 plan. Resource actions are indicated with the following symbols:
@@ -7,7 +7,7 @@ plan. Resource actions are indicated with the following symbols:
 
 Terraform will perform the following actions:
 
-  # module.secret.aws_kms_alias.aws_sm_dns_mapper_kms_key_alish will be created
+  # module.aws_kms_key.aws_kms_alias.aws_sm_dns_mapper_kms_key_alish will be created
   + resource "aws_kms_alias" "aws_sm_dns_mapper_kms_key_alish" {
       + arn            = (known after apply)
       + id             = (known after apply)
@@ -17,7 +17,7 @@ Terraform will perform the following actions:
       + target_key_id  = (known after apply)
     }
 
-  # module.secret.aws_kms_key.aws_sm_dns_mapper_kms_key will be created
+  # module.aws_kms_key.aws_kms_key.aws_sm_dns_mapper_kms_key will be created
   + resource "aws_kms_key" "aws_sm_dns_mapper_kms_key" {
       + arn                                = (known after apply)
       + bypass_policy_lockout_safety_check = false
@@ -111,7 +111,7 @@ Terraform will perform the following actions:
         }
     }
 
-  # module.secret.aws_secretsmanager_secret.secret will be created
+  # module.aws_sm.aws_secretsmanager_secret.secret will be created
   + resource "aws_secretsmanager_secret" "secret" {
       + arn                            = (known after apply)
       + force_overwrite_replica_secret = false
@@ -145,7 +145,7 @@ Terraform will perform the following actions:
         }
     }
 
-  # module.secret.aws_secretsmanager_secret_version.secret will be created
+  # module.aws_sm.aws_secretsmanager_secret_version.secret will be created
   + resource "aws_secretsmanager_secret_version" "secret" {
       + arn            = (known after apply)
       + id             = (known after apply)
@@ -158,6 +158,9 @@ Terraform will perform the following actions:
 Plan: 4 to add, 0 to change, 0 to destroy.
 
 Changes to Outputs:
+  + arn            = (known after apply)
+  + id             = (known after apply)
+  + key_id         = (known after apply)
   + secret         = {
       + arn                            = (known after apply)
       + description                    = null
@@ -181,11 +184,31 @@ Changes to Outputs:
           + "why"       = "testing"
         }
     }
-  + secret_version = (sensitive value)
+  + secret_version = {
+      + arn                            = (known after apply)
+      + description                    = null
+      + force_overwrite_replica_secret = false
+      + id                             = (known after apply)
+      + kms_key_id                     = (known after apply)
+      + name                           = "alias/default_kms_alish"
+      + name_prefix                    = (known after apply)
+      + policy                         = (known after apply)
+      + recovery_window_in_days        = 30
+      + replica                        = (known after apply)
+      + rotation_enabled               = (known after apply)
+      + rotation_lambda_arn            = (known after apply)
+      + rotation_rules                 = (known after apply)
+      + tags                           = {
+          + "whodunnit" = "dhruv"
+          + "why"       = "testing"
+        }
+      + tags_all                       = {
+          + "whodunnit" = "dhruv"
+          + "why"       = "testing"
+        }
+    }
 
 ─────────────────────────────────────────────────────────────────────────────
 
 Note: You didn't use the -out option to save this plan, so Terraform can't
 guarantee to take exactly these actions if you run "terraform apply" now.
-
-Administrator@DhruvRana-Lap MINGW64 ~/Workspace/Arlo/irobot/terraform/aws_secrate_kms_demo_1/terraform-aws-secretsmanager-secret/examples/dummy-secret

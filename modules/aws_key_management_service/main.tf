@@ -1,17 +1,3 @@
-resource "aws_secretsmanager_secret" "secret" {
- # kms_key_id = var.kms_key_id
-  kms_key_id = aws_kms_key.aws_sm_dns_mapper_kms_key.key_id
-  name       ="alias/${var.kms_alias}"
- // policy     = var.policy
-  tags       = var.tags
-}
-
-resource "aws_secretsmanager_secret_version" "secret" {
-  secret_id     = aws_secretsmanager_secret.secret.id
-  secret_string = var.value
-}
-
-
 
 resource "aws_kms_key" "aws_sm_dns_mapper_kms_key" {
   description         = "My KMS Keys for Data Encryption"

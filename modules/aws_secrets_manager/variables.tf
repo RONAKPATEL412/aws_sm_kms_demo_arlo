@@ -5,7 +5,6 @@ variable "description" {
 }
 
 variable "kms_key_id" {
-  default     = null
   description = "Optional. The KMS Key ID to encrypt the secret. KMS key arn or alias can be used."
 }
 
@@ -55,3 +54,5 @@ variable enabled {
 variable kms_alias {
   default = "default_kms_alish"
 }
+
+
