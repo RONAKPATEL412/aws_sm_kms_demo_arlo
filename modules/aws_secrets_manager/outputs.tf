@@ -13,8 +13,3 @@ output "secret" {
   description = "AWS SecretManager Secret resource"
   value       = aws_secretsmanager_secret.secret
 }
-
-# output "secret_version" {
-#   description = "A  WS SecretManager Secret Version resource"
-#   value       = aws_secretsmanager_secret_version.secret
-# }

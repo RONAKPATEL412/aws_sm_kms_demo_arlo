@@ -1,5 +1,6 @@
 
 variable "description" {
+  description = "AWS Secrets Managers with KMS"
   default = "terraform-managed secret"
   type    = string
 }
@@ -31,27 +32,9 @@ variable "value" {
   type        = string
 }
 
-variable "region" {
-  default = "us-east-1"
-}
-
-variable "user_arn" {
-  default ="arn:aws:iam::047109936880:user/khong-aol"
-}
-
-variable key_spec {
-  default = "SYMMETRIC_DEFAULT"
-}
-
-variable rotation_enabled {
-  default = true
-}
-
-variable enabled {
-  default = true
-}
 
 variable kms_alias {
+  description = "Optional. AWS Secrets manager secrets name"
   default = "default_kms_alish"
 }
 

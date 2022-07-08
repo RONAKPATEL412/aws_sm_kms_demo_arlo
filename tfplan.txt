@@ -1,5 +1,4 @@
-Administrator@DhruvRana-Lap MINGW64 ~/Workspace/Arlo/irobot/terraform/aws_secrate_kms_demo_1/teraform-aws-sm-with-kms/env/dev
-$ terraform.exe plan
+$ terraform plan
 
 Terraform used the selected providers to generate the following execution
 plan. Resource actions are indicated with the following symbols:
@@ -11,7 +10,7 @@ Terraform will perform the following actions:
   + resource "aws_kms_alias" "aws_sm_dns_mapper_kms_key_alish" {
       + arn            = (known after apply)
       + id             = (known after apply)
-      + name           = "alias/default_kms_alish"
+      + name           = "alias/aws_sm_dns_mapper_kms_key_alishs_kms_alish"
       + name_prefix    = (known after apply)
       + target_key_arn = (known after apply)
       + target_key_id  = (known after apply)
@@ -31,16 +30,16 @@ Terraform will perform the following actions:
       + multi_region                       = (known after apply)
       + policy                             = jsonencode(
             {
-              + Id        = "key-consolepolicy-3"
+              + Id        = "key-consolepolicy-2"
               + Statement = [
                   + {
                       + Action    = "kms:*"
                       + Effect    = "Allow"
                       + Principal = {
-                          + AWS = "arn:aws:iam::047109936880:user/khong-aol"
+                          + AWS = "arn:aws:iam::111122223333:root"
                         }
                       + Resource  = "*"
-                      + Sid       = "Enable IAM User Permissions"
+                      + Sid       = "Enable IAM policies"
                     },
                   + {
                       + Action    = [
@@ -61,7 +60,10 @@ Terraform will perform the following actions:
                         ]
                       + Effect    = "Allow"
                       + Principal = {
-                          + AWS = "arn:aws:iam::047109936880:user/khong-aol"
+                          + AWS = [
+                              + "arn:aws:iam::111122223333:user/KMSAdminUser",
+                              + "arn:aws:iam::111122223333:role/KMSAdminRole",
+                            ]
                         }
                       + Resource  = "*"
                       + Sid       = "Allow access for Key Administrators"
@@ -76,7 +78,11 @@ Terraform will perform the following actions:
                         ]
                       + Effect    = "Allow"
                       + Principal = {
-                          + AWS = "arn:aws:iam::047109936880:user/khong-aol"
+                          + AWS = [
+                              + "arn:aws:iam::111122223333:user/ExampleUser",
+                              + "arn:aws:iam::111122223333:role/ExampleRole",
+                              + "arn:aws:iam::444455556666:root",
+                            ]
                         }
                       + Resource  = "*"
                       + Sid       = "Allow use of the key"
@@ -94,7 +100,11 @@ Terraform will perform the following actions:
                         }
                       + Effect    = "Allow"
                       + Principal = {
-                          + AWS = "arn:aws:iam::047109936880:user/khong-aol"
+                          + AWS = [
+                              + "arn:aws:iam::111122223333:user/ExampleUser",
+                              + "arn:aws:iam::111122223333:role/ExampleRole",
+                              + "arn:aws:iam::444455556666:root",
+                            ]
                         }
                       + Resource  = "*"
                       + Sid       = "Allow attachment of persistent resources"
@@ -208,7 +218,3 @@ Changes to Outputs:
         }
     }
 
-─────────────────────────────────────────────────────────────────────────────
-
-Note: You didn't use the -out option to save this plan, so Terraform can't
-guarantee to take exactly these actions if you run "terraform apply" now.
