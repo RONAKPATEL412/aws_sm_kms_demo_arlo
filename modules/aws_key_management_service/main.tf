@@ -1,5 +1,4 @@
-
-resource "aws_kms_key" "aws_sm_dns_mapper_kms_key" {
+resource "aws_kms_key" "aws_sm_dns_mapper_kms_key1" {
   description         = var.aws_sm_dns_mapper_kms_key_description
   customer_master_key_spec = var.key_spec
   is_enabled               = var.enabled
@@ -9,82 +8,37 @@ resource "aws_kms_key" "aws_sm_dns_mapper_kms_key" {
     Name = var.aws_sm_dns_mapper_kms_key_tags_name
   }
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Id": "key-consolepolicy-2",
-  "Statement": [
-    {
-      "Sid": "Enable IAM policies",
-      "Effect": "Allow",
-      "Principal": {"AWS": "arn:aws:iam::111122223333:root"},
-      "Action": "kms:*",
-      "Resource": "*"
-    },
-    {
-      "Sid": "Allow access for Key Administrators",
-      "Effect": "Allow",
-      "Principal": {"AWS": [
-        "arn:aws:iam::111122223333:user/KMSAdminUser",
-        "arn:aws:iam::111122223333:role/KMSAdminRole"
-      ]},
-      "Action": [
-        "kms:Create*",
-        "kms:Describe*",
-        "kms:Enable*",
-        "kms:List*",
-        "kms:Put*",
-        "kms:Update*",
-        "kms:Revoke*",
-        "kms:Disable*",
-        "kms:Get*",
-        "kms:Delete*",
-        "kms:TagResource",
-        "kms:UntagResource",
-        "kms:ScheduleKeyDeletion",
-        "kms:CancelKeyDeletion"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "Allow use of the key",
-      "Effect": "Allow",
-      "Principal": {"AWS": [
-        "arn:aws:iam::111122223333:user/ExampleUser",
-        "arn:aws:iam::111122223333:role/ExampleRole",
-        "arn:aws:iam::444455556666:root"
-      ]},
-      "Action": [
-        "kms:Encrypt",
-        "kms:Decrypt",
-        "kms:ReEncrypt*",
-        "kms:GenerateDataKey*",
-        "kms:DescribeKey"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "Allow attachment of persistent resources",
-      "Effect": "Allow",
-      "Principal": {"AWS": [
-        "arn:aws:iam::111122223333:user/ExampleUser",
-        "arn:aws:iam::111122223333:role/ExampleRole",
-        "arn:aws:iam::444455556666:root"
-      ]},
-      "Action": [
-        "kms:CreateGrant",
-        "kms:ListGrants",
-        "kms:RevokeGrant"
-      ],
-      "Resource": "*",
-      "Condition": {"Bool": {"kms:GrantIsForAWSResource": "true"}}
-    }
-  ]
-}
-EOF
+ policy = data.aws_iam_policy_document.key_policy.json
 }
 
 resource "aws_kms_alias" "aws_sm_dns_mapper_kms_key_alish" {
-  target_key_id = aws_kms_key.aws_sm_dns_mapper_kms_key.key_id
+  target_key_id = aws_kms_key.aws_sm_dns_mapper_kms_key1.key_id
   name          = "alias/${var.kms_alias}"
+}
+
+data "aws_iam_policy_document" "key_policy" {
+  statement {
+    sid = "root user"
+    actions   = ["kms:*"]
+    resources = ["*"]
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${var.aws_account_id}:root"]
+    }
+  }
+  dynamic "statement" {
+    for_each = var.key_principals
+    content {
+      sid = "AllowAccess${statement.key}"
+      actions   = ["kms:*"]
+      resources = ["*"]
+
+      principals {
+        type        = "AWS"
+        identifiers = [statement.value]
+      }
+    }
+  }
 }

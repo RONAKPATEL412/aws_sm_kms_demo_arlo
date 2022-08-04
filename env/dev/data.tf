@@ -2,3 +2,6 @@
 #   template = file("/path/to/json")
 
 # }
+
+data "aws_caller_identity" "current" {}
+

@@ -3,6 +3,11 @@ variable "name" {
    type        = string
 }
 
+variable "aws_region" {
+   description = "AWS region value"
+   type        = string
+}
+
 variable "tags" {
   default     = {}
   description = "User-Defined tags"
@@ -16,7 +21,7 @@ variable "value" {
 
 variable "user_arn" {
   description = "AWS ARN"
-  default ="arn:aws:iam::047109936880:user/khong-aol"
+  default ="arn:aws:iam::663347784972:user/ronak"
 }
 
 variable key_spec {
@@ -33,11 +38,11 @@ variable rotation_enabled {
 }
 variable "kms_alias" {
     description = "AWS secrets manager dns mapper kms key alish name alish"
-    default = "aws_sm_dns_mapper_kms_key_alishs_kms_alish"
+    default = "aws_sm_dns_mapper_kms_key_alishs_kms_alish_agian"
 }
 variable "aws_sm_dns_mapper_kms_key" {
    description = "AWS secrets manager DNS Mapper KMS Key "
-    default = "default_kms_alish"
+    default = "default_kms_alish_agian"
 }
 
 variable "aws_sm_dns_mapper_kms_key_description" {
@@ -46,6 +51,19 @@ variable "aws_sm_dns_mapper_kms_key_description" {
 }
 
 variable "aws_sm_dns_mapper_kms_key_tags_name" {
-   description = "AWS secrets manager DNS Mapper KMS Key tages name"
-  default   = "my_kms_key"
+  description = "AWS secrets manager DNS Mapper KMS Key tages name"
+  default   = "my_kms_key_14"
+}
+
+variable "aws_secretsmanager_arn" {
+  description = "AWS secrets manager ARN Value"
+}
+
+variable "aws_account_id" {
+  description = "AWS account ID Value"
+}
+
+variable "key_principals" {
+  description = "list of AWS principals to access created kms key"
+  type = list(string)
 }

@@ -1,7 +1,7 @@
 
 variable "description" {
   description = "AWS Secrets Managers with KMS"
-  default = "terraform-managed secret"
+  default = "terraform-managed secret4"
   type    = string
 }
 
@@ -21,7 +21,7 @@ variable "name" {
 
 variable "tags" {
   default     = {
-     Name = "my_kms_key"
+     Name = "my_kms_key_14"
   }
   description = "User-Defined tags"
   type        = map(string)
@@ -35,7 +35,18 @@ variable "value" {
 
 variable kms_alias {
   description = "Optional. AWS Secrets manager secrets name"
-  default = "default_kms_alish"
+  default = "default_kms_alish_demo_11245678"
 }
 
+variable "aws_account_id" {
+  description = "AWS account ID Value"
+}
 
+variable "secret_principals" {
+  description = "list of AWS principals to access created secret"
+  type = list(string)
+}
+
+variable "applying_user" {
+  description = "terraform user that applies code"
+}
